@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coldbloom project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="successMessage" class="success-message" style="display: none;">
+  <strong>✔ Message Sent!</strong>
+  <p>Thanks for completing the form. We'll be in touch soon!</p>
+</div>
+      <div class="form-container">
+          <h2>Contact us</h2>
+      <form class="contact-form" action="#" method="post">
+          <div class="form-group">
+        <label for="name">First Name *</label>
+        <input type="text" name="firstname" id="firstname">
+        <small class="error-message"></small>
+          </div>
+          
+          
+          <div class="form-group">
+        <label for="name">last Name *</label>
+        <input type="text" name="lastname" id="lastname">
+        <small class="error-message"></small>
+          </div>
+          
+          
+          <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" name="email" id="email">
+        <small class="error-message"></small>
+          </div>
+          
+          
+          <div class="form-group">
+              <label>Query type *</label>
+              <div class="radio-group">
+                  <label class="option-box">
+                 <input type="radio" name="query type" id="general enquiry"value="General enquiry">General Enquiry 
+             </label>
+             <label class="option-box">
+                <input type="radio" id="support request" name="query type" value="support request">Support Request 
+            </label>
+              </div>
+         <small class="error-message"></small>
+           </div>
+           
+           <div class="form-group">
+               <label for="message" class="message">Message *</label>
+              <textarea rows="10" cols="20">
+               </textarea>
+         <small class="error-message"></small>
+           </div>
+           
+           <div class="form-group">
+               <label class="check-box"><input type="checkbox" id="consent">I hereby consent to being contacted by the team *</label>
+         <small class="error-message"></small>
+           </div>
+           
+           <button type="submit">Submit</button>
+      </form>
+      
+      
+    
+      </div>
+      
+      
+      
+      
+      <!-- js script -->
+ <script>
+      document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".contact-form");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+        const inputs = form.querySelectorAll("input, textarea");
+
+        inputs.forEach(input => {
+            const errorMessage = input.nextElementSibling;
+            
+            if (input.type !== "radio" && input.type !== "checkbox") {
+                if (input.value.trim() === "") {
+                    isValid = false;
+                    errorMessage.textContent = "This field is required.";
+                } else {
+                    errorMessage.textContent = "";
+                }
+            }
+        });
+
+        const queryType = form.querySelector("input[name='query type']:checked");
+        if (!queryType) {
+            isValid = false;
+            form.querySelector(".radio-group").nextElementSibling.textContent = "Please select an option.";
+        } else {
+            form.querySelector(".radio-group").nextElementSibling.textContent = "";
+        }
+
+        const consentCheckbox = document.getElementById("consent");
+        if (!consentCheckbox.checked) {
+            isValid = false;
+            consentCheckbox.nextElementSibling.textContent = "You must consent to be contacted.";
+        } else {
+            consentCheckbox.nextElementSibling.textContent = "";
+        }
+
+        if (isValid) {
+            successMessage.style.display = "block";
+            form.reset();
+            setTimeout(() => {
+                successMessage.style.display = "none";
+            }, 3000);
+        }
+    });
+});    
+ </script>
+</body>
+</html>
